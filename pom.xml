@@ -11,10 +11,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>cn.lianhy</groupId>
-  <artifactId>springboot-mybatis</artifactId>
+  <artifactId>springboot-shiro</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>springboot-mybatis</name>
+  <name>springboot-shiro</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
