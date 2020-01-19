@@ -7,11 +7,5 @@ import java.util.List;
 
 public interface UserService {
 
-    long insertBySelective(UserFO fo);
-
-    long updateByIdSelective(UserFO fo);
-
     List<UserTO> getList(UserFO fo);
-
-    List<UserTO> getListPage(UserFO fo);
 }

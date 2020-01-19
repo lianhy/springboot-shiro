@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head> 
+    <title>User Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>用户</h1>
+        </div>
+    </div>
+    <div class="row">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span class="badge" th:text="${user.name}"></span>
+                姓名
+            </li>
+            <li class="list-group-item">
+                <span class="badge" th:text="${user.password}"></span>
+                密码
+            </li>
+            <li class="list-group-item">
+                <span class="badge" th:text="${user.roleId}"></span>
+                角色ID
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

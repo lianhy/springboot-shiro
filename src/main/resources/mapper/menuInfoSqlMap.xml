@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lianhy.demo.dao.MenuInfoDao">
+    <resultMap id="menuInfoResultMap" type="cn.lianhy.demo.to.MenuInfoTO">
+        <id column="ID" property="id" jdbcType="INTEGER" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="IS_LINK" property="isLink" jdbcType="CHAR" />
+        <result column="LINK_URL" property="linkUrl" jdbcType="VARCHAR" />
+        <result column="IS_FIRST" property="isFirst" jdbcType="CHAR" />
+        <result column="IS_BUTTON" property="isButton" jdbcType="CHAR" />
+        <result column="ORDER_INFO" property="orderInfo" jdbcType="INTEGER" />
+        <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+        <result column="CREATE_USER_ID" property="createUserId" jdbcType="INTEGER" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="INTEGER" />
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+        <result column="IS_DEL" property="delFlag" jdbcType="CHAR" />
+        <result column="IS_VALID" property="validFlag" jdbcType="CHAR" />
+        <result column="PERMISSION_FLAG" property="permissionFlag" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="getUserRoleMenuInfoPermssion" parameterType="cn.lianhy.demo.form.MenuInfoFO" resultMap="menuInfoResultMap">
+        SELECT
+        t2.*
+        FROM role_menu_relation t1
+        LEFT JOIN menu_info t2 ON t1.MENU_ID = t2.ID
+        <where>
+            <if test="roleId != null">
+                and t1.ROLE_ID=#{roleId}
+            </if>
+        </where>
+    </select>
+</mapper>

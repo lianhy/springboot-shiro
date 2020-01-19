@@ -4,53 +4,23 @@
     <resultMap id="userResultMap" type="cn.lianhy.demo.to.UserTO">
         <id column="ID" jdbcType="INTEGER" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     </resultMap>
 
-    <insert id="insertBySelective" parameterType="cn.lianhy.demo.form.UserFO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="name!=null and name !=''">
-                name,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="name!=null and name !=''">
-                #{name,jdbcType=VARCHAR}
-            </if>
-        </trim>
-    </insert>
-
-    <sql id="where_clause">
+    <select id="getList" parameterType="cn.lianhy.demo.form.UserFO" resultMap="userResultMap">
+        SELECT t1.*
+        FROM user t1
         <where>
-            <if test="id!=null">
-                and id=#{id}
+            <if test="id != null">
+                and t1.id=#{id}
             </if>
-            <if test="name!=null and name!=''">
-                and name=#{name}
+            <if test="name != null and name != ''">
+                and t1.name=#{name}
+            </if>
+            <if test="password != null and password != ''">
+                and t1.password=#{password}
             </if>
         </where>
-    </sql>
-
-    <sql id="base_column_list">
-        id,
-        name
-    </sql>
-
-    <select id="getList" parameterType="cn.lianhy.demo.form.UserFO" resultMap="userResultMap">
-        SELECT
-        <include refid="base_column_list"/>
-        FROM user
-        <include refid="where_clause"/>
     </select>
-
-    <update id="updateByIdSelective">
-        UPDATE user
-        <set>
-            <if test="name!=null and name!=''">
-                name=#{name},
-            </if>
-        </set>
-        WHERE id={id}
-    </update>
-
 </mapper>

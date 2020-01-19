@@ -3,42 +3,40 @@ package cn.lianhy.demo.action;
 import cn.lianhy.demo.form.UserFO;
 import cn.lianhy.demo.service.UserService;
 import cn.lianhy.demo.to.UserTO;
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class DemoAction {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/user/addUser")
-    public String addUser(String name){
-        UserFO fo=new UserFO();
-        fo.setName(name);
-        userService.insertBySelective(fo);
-        return "success";
-    }
-
-    @GetMapping(value = "/user/getUser")
-    public String getUser(Integer id){
+    @GetMapping(value = "/user/toUserView")
+    public String toUserView(Integer id, Model model){
         UserFO fo=new UserFO();
         fo.setId(id);
         List<UserTO> list=userService.getList(fo);
-        return JSON.toJSONString(list);
+        if(list !=null && list.size()>0){
+            model.addAttribute("user",list.get(0));
+        }
+        return "user/userView";
     }
 
-    @GetMapping(value = "/user/getUserPage")
-    public String getUserPage(Integer pageIndex){
+    @GetMapping(value = "/user/toUserPage")
+    public ModelAndView toUserPage(Model model){
+        ModelAndView view=new ModelAndView();
         UserFO fo=new UserFO();
-        fo.setPageSize(2);
-        fo.setPageIndex(pageIndex);
-        List<UserTO> list=userService.getListPage(fo);
-        return JSON.toJSONString(list);
+        List<UserTO> list=userService.getList(fo);
+        if(list !=null && list.size()>0){
+            view.addObject("userList",list);
+        }
+        view.setViewName("user/userPage");
+        return view;
     }
 }
